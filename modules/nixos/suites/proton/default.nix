@@ -5,14 +5,14 @@
   config,
   pkgs,
   lib,
-  nix-gaming,
   ...
 }:
 with lib;
 with lib.thepiratebay; let
+  inherit (inputs) nix-gaming;
   cfg = config.suites.proton;
 in {
-  options.oceanic.audio = with types; {
+  options.suites.proton = with types; {
     enable = mkBoolOpt false "Whether or not to enable custom proton options";
   };
 

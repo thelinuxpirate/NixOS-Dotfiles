@@ -8,9 +8,9 @@
 }:
 with lib;
 with lib.${namespace}; let
-  cfg = config.${namespace}.themes.gtk.palenight;
+  cfg = config.themes.gtk.palenight;
 in {
-  options.${namespace}.themes.gtk.palenight = with types; {
+  options.themes.gtk.palenight = with types; {
     enable = mkBoolOpt false "Whether or not to enable the Palenight GTK theme";
   };
 

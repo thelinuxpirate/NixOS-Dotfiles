@@ -3,11 +3,11 @@
   config,
   pkgs,
   lib,
-  spicetify-nix,
   ...
 }:
 with lib;
 with lib.thepiratebay; let
+  inherit (inputs) spicetify-nix;
   cfg = config.apps.spicetify;
   # spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
 in {

@@ -5,11 +5,11 @@
   config,
   pkgs,
   lib,
-  nix-gaming,
   ...
 }:
 with lib;
 with lib.thepiratebay; let
+  inherit (inputs) nix-gaming;
   cfg = config.apps.gaming.extras;
 in {
   options.apps.gaming.extras = with types; {

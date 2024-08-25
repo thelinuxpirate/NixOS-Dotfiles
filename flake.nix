@@ -63,7 +63,7 @@
 
       channels-config = {
         allowUnfree = true;
-        permittedInsecurePackages = [];
+        permittedInsecurePackages = [ "olm-3.2.16" ];
       };
 
       homes.modules = with inputs; [
@@ -74,6 +74,8 @@
 
       systems.modules.nixos = with inputs; [
         home-manager.nixosModules.home-manager
+        nix-gaming.nixosModules.pipewireLowLatency
+	nix-gaming.nixosModules.platformOptimizations
       ];
 
       templates = import ./templates {};
