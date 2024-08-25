@@ -7,7 +7,7 @@
   ...
 }:
 with lib;
-with lib.custom; let
+with lib.thepiratebay; let
   cfg = config.suites.common;
 in {
   options.suites.common = with types; {
@@ -15,7 +15,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hardware.networking.enable = true;
+    #hardware.networking.enable = true;
     networking.networkmanager.enable = true;
 
     i18n = {
@@ -35,7 +35,7 @@ in {
 
     time.timeZone = "America/Los_Angeles";
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    services.ssh.enable = true;
+    services.sshd.enable = true;
 
     environment.systemPackages = with pkgs; [
       pkgs.git

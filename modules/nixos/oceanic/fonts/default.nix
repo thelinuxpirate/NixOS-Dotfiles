@@ -6,7 +6,7 @@
   ...
 }:
 with lib;
-with lib.custom; let
+with lib.thepiratebay; let
   cfg = config.oceanic.fonts;
 in {
   options.oceanic.fonts = with types; {

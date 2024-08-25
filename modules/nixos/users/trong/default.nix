@@ -6,14 +6,14 @@
   ...
 }:
 with lib;
-with lib.custom; let
+with lib.thepiratebay; let
   cfg = config.users.trong;
 in {
   options.users.trong = with types; {
     create = mkBoolOpt false "Create the TRONG user";
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.create {
     snowfallorg.users.trong = {
       create = true;
       admin = true;
