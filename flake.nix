@@ -31,6 +31,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ssbm-nix = { # Slippi-Launcher & GCC Kernel Module
+      url = "github:djanatyn/ssbm-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-minecraft = { # Nix-Minecraft (Server)
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -75,7 +80,7 @@
       systems.modules.nixos = with inputs; [
         home-manager.nixosModules.home-manager
         nix-gaming.nixosModules.pipewireLowLatency
-	nix-gaming.nixosModules.platformOptimizations
+        nix-gaming.nixosModules.platformOptimizations
       ];
 
       templates = import ./templates {};

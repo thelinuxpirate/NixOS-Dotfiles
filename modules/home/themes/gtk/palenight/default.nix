@@ -15,26 +15,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # TODO make homeCursors its own module
-    home.pointerCursor = {
-      package = pkgs.numix-cursor-theme;
-      name = "Numix-Cursor-Light";
-      size = 20;
-      gtk.enable = true;
-      x11.enable = true;
-    };
-
     gtk = {
       enable = true;
 
       theme = {
         name = "palenight";
         package = pkgs.palenight-theme;
-      };
-
-      iconTheme = { # Possibly its own module?
-        name = "ePapirus-Dark";
-        package = pkgs.papirus-icon-theme;
       };
 
       gtk3.extraConfig = {

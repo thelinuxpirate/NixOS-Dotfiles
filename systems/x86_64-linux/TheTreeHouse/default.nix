@@ -2,7 +2,7 @@
 {pkgs, ...}: {
   imports = [./hardware.nix];
 
-  # NixOS Boot Options
+  # NixOS boot options
   boot.loader = { 
     timeout = 25;
     systemd-boot = { 
@@ -13,34 +13,40 @@
     efi.canTouchEfiVariables = true;
   };
 
-  # Desktop Hostname
+  # Desktop hostname
   networking.hostName = "TheTreeHouse";
 
   # Create user "trong"
-  users.trong.create = true; 
+  users.trong.create = true;
+
+  # Set OS shell to Zsh
+  programs.zsh.enable = true;
 
   # Nix options
   nix = {
-    gc = { # Automatic Garbage Collection
+    gc = { # Automatic garbage collection
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
   };
 
-  # Enables the common desktop properties
-  suites.common.enable = true;
+  # Different suites for different needs 
+  suites = {
+    common.enable = true; # Enables the common desktop properties
+    gaming.enable = true; # Gaming options
+  };
 
   # Enables the Oceanic desktop modules
-  oceanic = { # TODO sort out oceanic modules 
+  oceanic = {
+    utils.enable = true;
     audio.enable = true;
     fonts.enable = true;
-    # env.enable = true;
-    # shell.enable = true;
+    # TODO make a global 'env' module
   };
 
   # Desktop environment
-  services.xserver = { # MUST CLEAN
+  services.xserver = {
     enable = true;
     updateDbusEnvironment = true;
     videoDrivers = [ "intel-media-driver" ];
@@ -56,66 +62,7 @@
     };
   };
 
-  programs = {
-    # zsh.enable = true; # oceanic.shell
-
-    hyprland = {
-      enable = true;
-      package = pkgs.hyprland;
-      portalPackage = pkgs.xdg-desktop-portal-hyprland;
-      xwayland.enable = true;
-    };
-
-    steam = { # TODO suites/gaming/default.nix & oceanic/naval versions
-      enable = true;
-      extest.enable = true;
-      protontricks.enable = true;
-    };
-
-    gamemode = {
-      enable = true;
-      enableRenice = true;
-    };
-
-    mtr.enable = true;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-  };
-
-
-  environment.systemPackages = with pkgs; [
-    # Utils
-    pkgs.appimage-run
-    pkgs.glxinfo
-    pkgs.vulkan-tools
-    pkgs.fastfetch
-
-    # Desktop
-    pkgs.waybar
-    pkgs.wofi
-    pkgs.swaybg
-    pkgs.mpvpaper
-    pkgs.xfce.xfce4-screenshooter
-    pkgs.ags
-    pkgs.dunst
-    pkgs.playerctl
-    pkgs.brightnessctl
-
-    # Applications
-    pkgs.xfce.thunar
-    pkgs.xfce.thunar-volman
-    pkgs.xfce.thunar-dropbox-plugin
-    pkgs.xfce.thunar-archive-plugin
-    pkgs.xfce.thunar-media-tags-plugin
-    pkgs.xfce.tumbler
-    pkgs.file-roller
-
-    pkgs.bluetuith
-    pkgs.blueberry
-    pkgs.pavucontrol
-  ];
+  desktops.hyprland.enable = true;
 
   system.stateVersion = "24.05";
 }

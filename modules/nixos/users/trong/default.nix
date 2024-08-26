@@ -1,3 +1,4 @@
+# TRONG owner of TheTreeHouse
 {
   options,
   config,
@@ -10,7 +11,7 @@ with lib.thepiratebay; let
   cfg = config.users.trong;
 in {
   options.users.trong = with types; {
-    create = mkBoolOpt false "Create the TRONG user";
+    create = mkBoolOpt false "Creates the TRONG user & applies their settings";
   };
 
   config = mkIf cfg.create {
@@ -20,58 +21,8 @@ in {
 
     home = {
       config = {
-        home.packages = [
-          # Web, & Media
-          pkgs.vesktop
-          pkgs.discord
-          pkgs.betterdiscordctl
-          pkgs.thunderbird
-
-          pkgs.tor-browser-bundle-bin
-          pkgs.transmission_4-gtk
-          pkgs.obs-studio
-          pkgs.obs-studio-plugins.wlrobs
-          pkgs.obs-studio-plugins.obs-pipewire-audio-capture
-          pkgs.vlc
-
-          # General
-          pkgs.neovide
-          pkgs.blender
-          pkgs.gimp
-          pkgs.krita
-          pkgs.pixelorama
-
-          pkgs.krabby
-          pkgs.onefetch
-          pkgs.ffmpeg
-          pkgs.xdelta
-          pkgs.hyprpicker
-    
-          # Programming
-          pkgs.ghc # Haskell
-          pkgs.cabal-install
-          pkgs.stack
-          pkgs.godot_4 # Godot/C#
-          pkgs.dotnet-sdk_8
-          pkgs.nim # Nim
-          pkgs.nimlsp
-          pkgs.asdf # Elixir 
-          pkgs.zig # Zig
-          pkgs.zls
-          pkgs.sbcl # Lisp/Scheme
-          pkgs.guile_3_0
-          pkgs.python311Packages.pip # Python
-          pkgs.go # Golang
-          pkgs.gcc # C/C++
-          pkgs.gnumake
-          pkgs.cmake
-          pkgs.lua # Lua
-          pkgs.nodejs # JS/TS
-          pkgs.bun
-        ];
-
         programs = {
-          foot = {
+          foot = { # return to WezTerm?
             enable = true;
 
             settings = {
@@ -148,7 +99,7 @@ in {
             };
           };
 
-          neovim = {
+          neovim = { # NixVim module soon (still use NvChad???)
             enable = true;
             defaultEditor = true;
 
