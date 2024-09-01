@@ -4,6 +4,7 @@
   inputs = {
     # Base Inputs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
     home-manager = { # Home-Manager
       url = "github:nix-community/home-manager/master";
@@ -22,17 +23,12 @@
 
     # Extra Inputs
     spicetify-nix = { # Spicetify 
-      url = "github:the-argus/spicetify-nix";
+      url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-gaming = { # NixOS Gaming Options
       url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ssbm-nix = { # Slippi-Launcher & GCC Kernel Module
-      url = "github:djanatyn/ssbm-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

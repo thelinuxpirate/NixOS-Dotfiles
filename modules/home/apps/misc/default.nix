@@ -35,7 +35,6 @@ in {
       pkgs.pixelorama # gd
 
       # Misc & util
-      pkgs.neovide
       pkgs.krabby
       pkgs.betterdiscordctl
       pkgs.onefetch

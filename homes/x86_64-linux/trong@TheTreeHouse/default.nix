@@ -13,9 +13,18 @@ with lib.${namespace}; {
     name = "trong";
   };
 
+  # Shell Management
+  shells = {
+    zsh.enable = true;
+    starship.enable = true;
+  };
+
   # Applications
   apps = {
-    misc.enable = true;
+    misc = {
+      enable = true;
+      spicetify.enable = true;
+    };
 
     programming = {
       enable = true;
@@ -26,9 +35,8 @@ with lib.${namespace}; {
       enable = true;
 
       extras = {
-        proton.enable = true;
+        proton.enable = false;
         #minecraft.enable = true;
-        #ssbm.enable = true;
       };
     };
   };

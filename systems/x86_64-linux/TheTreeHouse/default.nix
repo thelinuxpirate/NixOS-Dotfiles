@@ -16,8 +16,9 @@
   # Desktop hostname
   networking.hostName = "TheTreeHouse";
 
-  # Create user "trong"
-  users.trong.create = true;
+  # Create user "trong" & set default shell
+  users.trong.create = true; 
+  users.users.trong.shell = pkgs.zsh;
 
   # Set OS shell to Zsh
   programs.zsh.enable = true;
@@ -42,7 +43,7 @@
     utils.enable = true;
     audio.enable = true;
     fonts.enable = true;
-    # TODO make a global 'env' module
+    # TODO make a global 'env' module for environment variables etc
   };
 
   # Desktop environment
@@ -55,6 +56,7 @@
       variant = "";
     };
     
+    # TODO change display manager to SDDM & customize it
     displayManager.gdm = {
       enable = true;
       autoSuspend = false;

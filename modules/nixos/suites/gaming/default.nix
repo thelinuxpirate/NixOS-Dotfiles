@@ -12,7 +12,7 @@ with lib.thepiratebay; let
   cfg = config.suites.gaming;
 in {
   options.suites.gaming = with types; {
-    enable = mkBoolOpt false "Whether or not to Steam gaming options";
+    enable = mkBoolOpt false "Whether or not to enable Steam gaming options";
   };
 
   config = mkIf cfg.enable { 

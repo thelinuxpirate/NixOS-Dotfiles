@@ -34,10 +34,10 @@ in {
       pkgs.swaybg
       pkgs.mpvpaper
       pkgs.xfce.xfce4-screenshooter
-      pkgs.ags # TODO replace with official flake
       pkgs.dunst
       pkgs.playerctl
       pkgs.brightnessctl
+      pkgs.pamixer
 
       # Applications used with ThePirateBay rice
       pkgs.xfce.thunar
