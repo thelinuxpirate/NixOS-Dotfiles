@@ -2,14 +2,9 @@ _: {
   # Enable Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Disable wpa_supplicant
+  # Disable wpa_supplicant (Network_Manager is enabled)
   networking.wireless.enable = false;
-  # Enable NetworkManager
-  networking.networkmanager.enable = true;
 
   suites.common.enable = true;
-  services.ssh.enable = true;
-
-  system.stateVersion = "22.11";
+  system.stateVersion = "22.05";
 }

@@ -22,6 +22,11 @@
     };
 
     # Extra Inputs
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-24.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     spicetify-nix = { # Spicetify 
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,6 +73,7 @@
       };
 
       homes.modules = with inputs; [
+        nixvim.homeManagerModules.nixvim
         spicetify-nix.homeManagerModules.default
       ];
 

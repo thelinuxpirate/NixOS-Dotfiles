@@ -15,7 +15,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    #hardware.networking.enable = true;
     networking.networkmanager.enable = true;
 
     i18n = {
@@ -40,6 +39,7 @@ in {
     environment.systemPackages = with pkgs; [
       pkgs.git
       pkgs.curl
+      pkgs.nano
       pkgs.pciutils
       pkgs.usbutils
       pkgs.tree

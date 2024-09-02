@@ -46,21 +46,35 @@
     # TODO make a global 'env' module for environment variables etc
   };
 
+  # SDDM prerequisite
+  environment.systemPackages = [(
+    pkgs.catppuccin-sddm.override {
+      flavor = "mocha";
+      font  = "Comic Mono";
+      fontSize = "12";
+      background = "${./backgrounds/TPS.png}";
+      loginBackground = true;
+    }
+  )];
+
   # Desktop environment
-  services.xserver = {
-    enable = true;
-    updateDbusEnvironment = true;
-    videoDrivers = [ "intel-media-driver" ];
-    xkb = {
-      layout = "us";
-      variant = "";
+  services = {
+    xserver = {
+      enable = true;
+      updateDbusEnvironment = true;
+      videoDrivers = [ "intel-media-driver" ];
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
     };
     
-    # TODO change display manager to SDDM & customize it
-    displayManager.gdm = {
+    displayManager.sddm = {
       enable = true;
-      autoSuspend = false;
-      wayland  = true;
+      wayland.enable = true;
+
+      theme = "catppuccin-mocha";
+      package = pkgs.kdePackages.sddm;
     };
   };
 

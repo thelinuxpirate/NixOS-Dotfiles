@@ -16,7 +16,7 @@ in {
 
   config = mkIf cfg.enable {
     gtk.iconTheme = { # TODO Change to catppuccin version
-      name = "ePapirus-Dark";
+      name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
   };

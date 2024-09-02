@@ -1,4 +1,4 @@
-# Utils & media packages
+# Programs, Utils, & Media packages 
 {
   options,
   config,
@@ -15,6 +15,56 @@ in {
   };
 
   config = mkIf cfg.enable {
+    programs = {
+      firefox = {
+        enable = true;
+        enableGnomeExtensions = false;
+      };
+
+      tmux = {
+        enable = true;
+        tmuxinator.enable = true;
+
+        mouse = true;
+        secureSocket = true;
+        disableConfirmationPrompt = true;
+
+        historyLimit = 5000;
+        escapeTime = 650;
+        resizeAmount = 2;
+        clock24 = true;
+
+        prefix = "C-x";
+      };
+
+      git = {
+        enable = true;
+        userEmail = "dim7.42407@gmail.com";
+        userName = "thelinuxpirate";
+
+        difftastic = {
+          enable = true;
+          background = "dark";
+          color = "auto";
+        };
+      };
+
+      gitui.enable = true;
+
+      fzf = {
+        enable = true;
+        enableZshIntegration = true;
+
+        tmux = {
+          enableShellIntegration = true;
+        };
+      };
+
+      nheko = {
+        enable = true;
+      };
+    };
+
     home.packages = [
       # Web & media
       pkgs.vesktop # TODO look into discord flakes

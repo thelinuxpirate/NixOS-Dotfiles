@@ -16,8 +16,6 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      pkgs.neovide
-
       # TODO replace all of these with development shells or templates?
       pkgs.ghc # Haskell
       pkgs.cabal-install

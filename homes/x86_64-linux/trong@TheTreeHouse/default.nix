@@ -23,11 +23,13 @@ with lib.${namespace}; {
   apps = {
     misc = {
       enable = true;
+      terms.foot.enable = true;
       spicetify.enable = true;
     };
 
     programming = {
       enable = true;
+      nixvim.enable = true;
       gamedev.enable = true;
     };
 
