@@ -1,4 +1,4 @@
-# ThePirateBay - The Oceanic Desktop
+# TheTreeHouse - SFF Home
 {pkgs, ...}: {
   imports = [./hardware.nix];
 
