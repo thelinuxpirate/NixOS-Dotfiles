@@ -1,5 +1,6 @@
 # Sleepy-DWM Nix port 
 {
+  inputs,
   options,
   config,
   pkgs,
@@ -8,6 +9,7 @@
 }:
 with lib;
 with lib.thepiratebay; let
+  inherit (inputs) sleepy-dwm;
   cfg = config.desktops.sleepy-dwm;
 in {
   options.desktops.sleepy-dwm = with types; {
@@ -16,20 +18,29 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # TODO add patched versions of Slstatus, Dmenu, & ST
     services.xserver.windowManager.dwm = {
       enable = true;
-      package = pkgs.dwm.overrideAttrs rec {
+      package = pkgs.dwm.overrideAttrs (oldAttrs: rec {
         pname = "sleepy-dwm";
         version = "6.5";
-        src = /home/trong/.config/sleepy-dwm; # Replace with your user
+        src = pkgs.fetchFromGitHub {
+          owner = "thelinuxpirate";
+          repo = "sleepy-dwm";
+          rev = "master"; # 47981b8d375edd044bf230d1009cbdf576a9922e
+          sha256 = "0f1pmnbnrz61qs9h713iahvjfa7qiar73s5gy6jgk8dmgjbk2cwk";
+        };
         nativeBuildInputs = [ pkgs.imlib2 ];
-      };
+      });
+    };
+
+    sleepy = {
+      enableSlstatus = true;
+      enableDmenu = true;
     };
 
     environment.systemPackages = with pkgs; [
       # Desktop dependencies
-      pkgs.wezterm
+      pkgs.alacritty
       pkgs.feh
       pkgs.picom
       pkgs.dunst

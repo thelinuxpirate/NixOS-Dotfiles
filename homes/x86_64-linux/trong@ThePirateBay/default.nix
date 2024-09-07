@@ -23,6 +23,7 @@ with lib.${namespace}; {
   apps = {
     misc = {
       enable = true;
+      terms.wezterm.enable = true;
       terms.foot.enable = true;
       spicetify.enable = true;
     };
@@ -37,8 +38,9 @@ with lib.${namespace}; {
       enable = true;
 
       extras = {
+        enable = true;
         proton.enable = false;
-        #minecraft.enable = true;
+        minecraft.enable = true;
       };
     };
   };

@@ -29,8 +29,10 @@ in {
 
     environment.systemPackages = with pkgs; [
       pkgs.appimage-run
+      pkgs.nix-prefetch-git
       pkgs.glxinfo
       pkgs.vulkan-tools
+      pkgs.networkmanagerapplet
       pkgs.fastfetch
     ];
   };

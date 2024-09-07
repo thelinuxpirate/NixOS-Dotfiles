@@ -1,5 +1,5 @@
 {
-  description = "TRONG's ThePirateBay NixOS build";
+  description = "TRONG's NixOS builds, including: ThePirateBay, TheTreeHouse, & ThePirateShip";
 
   inputs = {
     # Base Inputs
@@ -15,6 +15,9 @@
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Sleepy Suckless Ecosystem
+    sleepy-dwm.url = "github:thelinuxpirate/sleepy-dwm";
 
     nixos-generators = { # ISO Generator
       url = "github:nix-community/nixos-generators";
@@ -69,7 +72,10 @@
 
       channels-config = {
         allowUnfree = true;
-        permittedInsecurePackages = [ "olm-3.2.16" ];
+        permittedInsecurePackages = [ 
+	  "openssl-1.1.1w"
+          "olm-3.2.16"
+	];
       };
 
       homes.modules = with inputs; [
@@ -81,6 +87,7 @@
 
       systems.modules.nixos = with inputs; [
         home-manager.nixosModules.home-manager
+	sleepy-dwm.nixosModules.sleepy
         nix-gaming.nixosModules.pipewireLowLatency
         nix-gaming.nixosModules.platformOptimizations
       ];

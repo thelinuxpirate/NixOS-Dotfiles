@@ -74,7 +74,10 @@
     };
   };
 
-  desktops.hyprland.enable = true;
+  desktops = {
+    sleepy-dwm.enable = true;
+    hyprland.enable = true;
+  };
 
   system.stateVersion = "24.05";
 }

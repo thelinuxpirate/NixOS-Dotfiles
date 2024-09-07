@@ -15,7 +15,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    networking.networkmanager.enable = true;
+    networking.networkmanager = {
+      enable = true;
+      wifi.powersave = false;
+    };
 
     i18n = {
       defaultLocale = "en_US.UTF-8";
