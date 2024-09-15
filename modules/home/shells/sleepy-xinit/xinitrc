@@ -1,0 +1,10 @@
+xset r rate 200 60 &
+xset b off &
+slstatus &
+nm-applet &
+blueman-applet &
+feh --bg-fill ~/Pictures/Wallpapers/landscape/TPS.png &
+picom --daemon &
+dunst &
+flameshot &
+#playme -t ~/.local/audio/StickerbushSymphony.mp3 -d 1 &

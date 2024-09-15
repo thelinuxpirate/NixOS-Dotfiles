@@ -1,5 +1,13 @@
 # ThePirateBay - The Oceanic Desktop
-{pkgs, ...}: {
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+
+{
   imports = [ ./hardware.nix ];
 
   # NixOS boot options
@@ -7,13 +15,14 @@
     enable = true;
     device = "/dev/sda";
     useOSProber = true;
+    theme = inputs.grub-themes.packages.${pkgs.system}.hyperfluent;
   };
 
   # Desktop hostname
   networking.hostName = "ThePirateBay";
 
   # Create user "trong" & set default shell
-  users.trong.create = true; 
+  users.trong.create = true;
   users.users.trong.shell = pkgs.zsh;
 
   # Set OS shell to Zsh
@@ -28,7 +37,7 @@
     };
   };
 
-  # Different suites for different needs 
+  # Different suites for different needs
   suites = {
     common.enable = true; # Enables the common desktop properties
     gaming.enable = true; # Gaming options
@@ -48,7 +57,7 @@
       flavor = "mocha";
       font  = "Comic Mono";
       fontSize = "12";
-      background = "${./backgrounds/TPS.png}";
+      background = "${./backgrounds/city-lights.jpg}";
       loginBackground = true;
     }
   )];
@@ -64,7 +73,7 @@
         variant = "";
       };
     };
-    
+
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
@@ -75,8 +84,11 @@
   };
 
   desktops = {
-    sleepy-dwm.enable = true;
     hyprland.enable = true;
+    sleepy-dwm.enable = true;
+    xmonad.enable = false;
+    awesome.enable = false;
+
   };
 
   system.stateVersion = "24.05";

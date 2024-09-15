@@ -17,15 +17,22 @@ with lib.${namespace}; {
   shells = {
     zsh.enable = true;
     starship.enable = true;
+    sleepy-xinit.enable = true;
   };
 
   # Applications
   apps = {
     misc = {
       enable = true;
-      terms.wezterm.enable = true;
-      terms.foot.enable = true;
+      ags.enable = true;
       spicetify.enable = true;
+
+      terms = {
+        tmux.enable = true;
+        alacritty.enable = true;
+        foot.enable = false;
+        wezterm.enable = false;
+      };
     };
 
     programming = {
@@ -39,8 +46,9 @@ with lib.${namespace}; {
 
       extras = {
         enable = true;
-        proton.enable = false;
+        emulation.enable = true;
         minecraft.enable = true;
+        proton.enable = false;
       };
     };
   };

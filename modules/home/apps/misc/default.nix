@@ -1,4 +1,4 @@
-# Programs, Utils, & Media packages 
+# Programs, Utils, & Media packages
 {
   options,
   config,
@@ -51,6 +51,13 @@ in {
 
       gitui.enable = true;
 
+      btop = {
+        enable = true;
+        settings = {
+          color_theme = "tokyo-night";
+        };
+      };
+
       fzf = {
         enable = true;
         enableZshIntegration = true;
@@ -90,7 +97,7 @@ in {
       pkgs.onefetch
       pkgs.ffmpeg
       pkgs.xdelta
-      pkgs.hyprpicker # TODO add to desktops.hyprland?
-    ]; 
+      pkgs.hyprpicker
+    ];
   };
 }

@@ -1,4 +1,4 @@
-# Sleepy-DWM Nix port 
+# Sleepy-DWM Nix port
 {
   inputs,
   options,
@@ -26,10 +26,10 @@ in {
         src = pkgs.fetchFromGitHub {
           owner = "thelinuxpirate";
           repo = "sleepy-dwm";
-          rev = "master"; # 47981b8d375edd044bf230d1009cbdf576a9922e
-          sha256 = "0f1pmnbnrz61qs9h713iahvjfa7qiar73s5gy6jgk8dmgjbk2cwk";
+          rev = "master"; # 38a7b5b
+          sha256 = "1p1z6xfkiilvkm32zf24qddnvxmay57hxrrm6az0xw285j17w50g";
         };
-        nativeBuildInputs = [ pkgs.imlib2 ];
+        nativeBuildInputs = oldAttrs.nativeBuildInputs or [] ++ [ pkgs.imlib2 ];
       });
     };
 

@@ -4,7 +4,7 @@ return {
 
   -- appearence
   color_scheme = 'Tokyo Night',
-  font = wezterm.font 'Comic Mono',
+  --font = wezterm.font 'Comic Mono',
   front_end = 'OpenGL',
 
   window_decorations = 'RESIZE',

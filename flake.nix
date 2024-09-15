@@ -16,6 +16,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # GRUB Bootloader Themes
+    grub-themes.url = "github:jeslie0/nixos-grub-themes";
+
     # Sleepy Suckless Ecosystem
     sleepy-dwm.url = "github:thelinuxpirate/sleepy-dwm";
 
@@ -25,12 +28,19 @@
     };
 
     # Extra Inputs
-    nixvim = {
+    nixvim = { # Declarative NeoVim
       url = "github:nix-community/nixvim/nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    spicetify-nix = { # Spicetify 
+    # Ags Shell
+    alacritty-themes.url = "github:alexghr/alacritty-theme.nix";
+
+    ags.url = "github:Aylur/ags";
+
+    swww.url = "github:LGFae/swww";
+
+    spicetify-nix = { # Spicetify
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -72,22 +82,23 @@
 
       channels-config = {
         allowUnfree = true;
-        permittedInsecurePackages = [ 
-	  "openssl-1.1.1w"
+        permittedInsecurePackages = [
+          "openssl-1.1.1w"
           "olm-3.2.16"
-	];
+        ];
       };
 
       homes.modules = with inputs; [
         nixvim.homeManagerModules.nixvim
+        ags.homeManagerModules.default
         spicetify-nix.homeManagerModules.default
       ];
 
-      overlays = with inputs; [];
+      overlays = with inputs; [ alacritty-themes.overlays.default ];
 
       systems.modules.nixos = with inputs; [
         home-manager.nixosModules.home-manager
-	sleepy-dwm.nixosModules.sleepy
+        sleepy-dwm.nixosModules.sleepy
         nix-gaming.nixosModules.pipewireLowLatency
         nix-gaming.nixosModules.platformOptimizations
       ];

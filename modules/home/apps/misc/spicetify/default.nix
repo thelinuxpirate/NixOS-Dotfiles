@@ -19,8 +19,8 @@ in {
     programs.spicetify = {
       enable = true;
 
-      theme = spicetify-nix.legacyPackages.${pkgs.system}.themes.lucid;
-      colorScheme = "dark";
+      theme = spicetify-nix.legacyPackages.${pkgs.system}.themes.comfy;
+      colorScheme = "catppuccin-macchiato";
 
       enabledCustomApps = with spicetify-nix.legacyPackages.${pkgs.system}.apps; [
         localFiles

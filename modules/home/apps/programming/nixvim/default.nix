@@ -1,3 +1,4 @@
+# NixVim build
 {
   options,
   config,
@@ -15,12 +16,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Install NeoVide
     home.packages = [ pkgs.neovide ];
 
-    # Enables NixVim
     programs.nixvim = {
       enable = true;
+      defaultEditor = true;
       enableMan = true;
       vimAlias = true;
       colorschemes.tokyonight.enable = true;
@@ -31,6 +31,8 @@ in {
   imports = [
     ./config/options.nix
     ./config/mappings.nix
-    ./config/plugins/telescope.nix
+    ./config/plugins/utils.nix
+    ./config/plugins/visuals.nix
+    ./config/plugins/lsp.nix
   ];
 }

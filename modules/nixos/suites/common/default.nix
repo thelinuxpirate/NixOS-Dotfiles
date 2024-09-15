@@ -46,6 +46,7 @@ in {
       pkgs.pciutils
       pkgs.usbutils
       pkgs.tree
+      pkgs.ncdu
       pkgs.pfetch
     ];
   };

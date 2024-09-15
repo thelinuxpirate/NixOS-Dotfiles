@@ -1,4 +1,4 @@
-# ThePirateBay Hyprland setup
+# ThePirateBay XMonad setup
 {
   inputs,
   options,
@@ -9,39 +9,33 @@
 }:
 with lib;
 with lib.thepiratebay; let
-  inherit (inputs) swww;
-  cfg = config.desktops.hyprland;
+  inherit (inputs) sleepy-dwm;
+  cfg = config.desktops.xmonad;
 in {
-  options.desktops.hyprland = with types; {
-    enable = mkBoolOpt false "Whether or not to enable Hyprland";
+  options.desktops.xmonad = with types; {
+    enable = mkBoolOpt false "Whether or not to enable XMonadWM";
     # NOTE DISPLAY MANAGERS WILL ALWAYS BE MANAGED BY THE HOST NOT A MODULE
   };
 
   config = mkIf cfg.enable {
-    programs = {
-      hyprland = {
-        enable = true;
-        xwayland.enable = true;
-      };
-
-      hyprlock.enable = false;
+    services.xserver.windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      config = builtins.readFile ./config/xmonad.hs;
     };
 
-    services.hypridle.enable = false;
+    sleepy.enableDmenu = true;
 
     environment.systemPackages = with pkgs; [
       # Desktop dependencies
-      swww.packages.${pkgs.system}.swww
-      pkgs.waybar
-      pkgs.wofi
-      pkgs.sass
-      pkgs.sassc
-      pkgs.mpvpaper
-      pkgs.grimblast
+      pkgs.feh
+      pkgs.picom
+      pkgs.flameshot
+      pkgs.dunst
+      pkgs.polybar
       pkgs.playerctl
       pkgs.brightnessctl
       pkgs.pamixer
-      pkgs.gnome.gvfs
 
       # Applications used with ThePirateBay rice
       pkgs.xfce.thunar

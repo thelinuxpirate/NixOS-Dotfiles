@@ -2,7 +2,10 @@
   programs.nixvim = {
     opts = {
       cursorline = true;
-      relativenumber = true;
+      relativenumber = false;
+      tabstop = 2;
+      shiftwidth = 2;
+      expandtab = true;
       mouse = "a";
       showmode = false;
       breakindent = true;
@@ -15,5 +18,7 @@
       scrolloff = 15;
       hlsearch = true;
     };
+
+    extraConfigLua = builtins.readFile ./lua/options.lua;
   };
 }
