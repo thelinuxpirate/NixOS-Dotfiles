@@ -1,4 +1,4 @@
-# Ags wayland shell
+# Ags Wayland Shell
 {
   inputs,
   options,
@@ -23,6 +23,17 @@ in {
         pkgs.gtksourceview
 	      pkgs.webkitgtk
 	      pkgs.accountsservice
+
+        pkgs.esbuild
+        pkgs.libnotify
+        pkgs.dart-sass
+        pkgs.fd
+        pkgs.libgtop
+        pkgs.gobject-introspection
+        pkgs.glib
+        pkgs.bluez-tools
+        pkgs.gpu-screen-recorder
+        pkgs.matugen
       ];
     };
   };

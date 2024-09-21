@@ -1,3 +1,4 @@
+# TRONG Management & Settings
 {
   config,
   lib,
@@ -8,6 +9,7 @@
 }:
 with lib;
 with lib.${namespace}; {
+  # Enable User
   snowfallorg.user = {
     enable = true;
     name = "trong";
@@ -24,7 +26,6 @@ with lib.${namespace}; {
   apps = {
     misc = {
       enable = true;
-      ags.enable = true;
       spicetify.enable = true;
 
       terms = {
@@ -33,14 +34,21 @@ with lib.${namespace}; {
         foot.enable = false;
         wezterm.enable = false;
       };
+
+      ags = {
+        enable = false;
+        hyprpanel.enable = true;
+      };
     };
 
+    # Programming Tools
     programming = {
       enable = true;
       nixvim.enable = true;
       gamedev.enable = true;
     };
 
+    # Gaming Options
     gaming = {
       enable = true;
 

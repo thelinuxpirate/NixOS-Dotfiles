@@ -19,9 +19,6 @@
     # GRUB Bootloader Themes
     grub-themes.url = "github:jeslie0/nixos-grub-themes";
 
-    # Sleepy Suckless Ecosystem
-    sleepy-dwm.url = "github:thelinuxpirate/sleepy-dwm";
-
     nixos-generators = { # ISO Generator
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,11 +30,19 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    # Ags Shell
+    # HyprPanel Bar
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+
+    # Sleepy Suckless Ecosystem
+    sleepy-dwm.url = "github:thelinuxpirate/sleepy-dwm";
+
+    # Themes for Alacritty Terminal
     alacritty-themes.url = "github:alexghr/alacritty-theme.nix";
 
+    # Ags Shell
     ags.url = "github:Aylur/ags";
 
+    # Wayland Wallpaper Tool
     swww.url = "github:LGFae/swww";
 
     spicetify-nix = { # Spicetify
@@ -94,7 +99,10 @@
         spicetify-nix.homeManagerModules.default
       ];
 
-      overlays = with inputs; [ alacritty-themes.overlays.default ];
+      overlays = with inputs; [
+        alacritty-themes.overlays.default
+        hyprpanel.overlay
+      ];
 
       systems.modules.nixos = with inputs; [
         home-manager.nixosModules.home-manager
