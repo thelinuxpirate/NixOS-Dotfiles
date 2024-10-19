@@ -1,5 +1,6 @@
-# NixVim build
+# NixVim
 {
+  inputs,
   options,
   config,
   pkgs,
@@ -16,23 +17,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.neovide ];
-
-    programs.nixvim = {
-      enable = true;
-      defaultEditor = true;
-      enableMan = true;
-      vimAlias = true;
-      colorschemes.tokyonight.enable = true;
-    };
+    home.packages = [
+      inputs.hielo.packages.${pkgs.system}.default
+      pkgs.neovide
+      pkgs.stylua
+      pkgs.ripgrep
+    ];
   };
-
-  # Import NixVim configuration modules
-  imports = [
-    ./config/options.nix
-    ./config/mappings.nix
-    ./config/plugins/utils.nix
-    ./config/plugins/visuals.nix
-    ./config/plugins/lsp.nix
-  ];
 }

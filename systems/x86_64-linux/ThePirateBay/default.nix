@@ -47,8 +47,7 @@
   oceanic = {
     utils.enable = true;
     audio.enable = true;
-    fonts.enable = true;
-    # TODO make a global 'env' module for environment variables etc
+    theme.enable = true;
   };
 
   # SDDM prerequisite
@@ -88,7 +87,6 @@
     sleepy-dwm.enable = true;
     xmonad.enable = false;
     awesome.enable = false;
-
   };
 
   system.stateVersion = "24.05";

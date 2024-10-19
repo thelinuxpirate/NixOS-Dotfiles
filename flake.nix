@@ -1,5 +1,5 @@
 {
-  description = "TRONG's NixOS builds, including: ThePirateBay, TheTreeHouse, & ThePirateShip";
+  description = "TRONG's NixOS builds: ThePirateBay, TheTreeHouse, & ThePirateShip";
 
   inputs = {
     # Base Inputs
@@ -16,6 +16,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Stylix System Colors
+    stylix.url = "github:danth/stylix";
+
     # GRUB Bootloader Themes
     grub-themes.url = "github:jeslie0/nixos-grub-themes";
 
@@ -25,10 +28,8 @@
     };
 
     # Extra Inputs
-    nixvim = { # Declarative NeoVim
-      url = "github:nix-community/nixvim/nixos-24.05";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
+    # Declarative NeoVim
+    hielo.url = "github:thelinuxpirate/hielo";
 
     # HyprPanel Bar
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
@@ -94,7 +95,6 @@
       };
 
       homes.modules = with inputs; [
-        nixvim.homeManagerModules.nixvim
         ags.homeManagerModules.default
         spicetify-nix.homeManagerModules.default
       ];
@@ -107,6 +107,7 @@
       systems.modules.nixos = with inputs; [
         home-manager.nixosModules.home-manager
         sleepy-dwm.nixosModules.sleepy
+        stylix.nixosModules.stylix
         nix-gaming.nixosModules.pipewireLowLatency
         nix-gaming.nixosModules.platformOptimizations
       ];

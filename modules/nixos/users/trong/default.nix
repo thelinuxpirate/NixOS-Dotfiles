@@ -19,5 +19,9 @@ in {
       create = true;
       admin = true;
     };
+
+    services.udev.packages = with pkgs; [
+      platformio-core.udev
+    ];
   };
 }

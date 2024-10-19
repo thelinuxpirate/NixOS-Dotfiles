@@ -53,9 +53,9 @@ in {
 
       btop = {
         enable = true;
-        settings = {
-          color_theme = "tokyo-night";
-        };
+        #settings = {
+          #color_theme = "tokyo-night";
+        #};
       };
 
       fzf = {

@@ -22,7 +22,13 @@ in {
         enable = true;
         settings.import = [ pkgs.alacritty-theme.tokyo-night ];
         settings = {
-          font.size = 13;
+          font = {
+            normal.family = "Comic Mono";
+            bold.family = "Comic Mono";
+            italic.family = "Comic Mono";
+            bold_italic.family = "Comic Mono";
+            size = 13;
+          };
 
           cursor = {
             style = {
