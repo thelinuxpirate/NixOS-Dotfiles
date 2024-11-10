@@ -28,41 +28,50 @@
     };
 
     # Extra Inputs
-    # Declarative NeoVim
-    hielo.url = "github:thelinuxpirate/hielo";
+    # Sleepy Suckless Ecosystem
+    sleepy-dwm.url = "github:thelinuxpirate/sleepy-dwm";
+
+    # Cosmic Desktop
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+
+    # Emacs Overlay
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Darkwraith Emacs
+    #darkwraith-emacs.url = "github:thelinuxpirate/Darkwraith-Emacs";
+
+    # NixVim Configuration
+    hielo.url = "github:thelinuxpirate/HIELO";
+
+    # Web Browser
+    zen-browser.url = "github:/MarceColl/zen-browser-flake";
 
     # HyprPanel Bar
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
 
-    # Sleepy Suckless Ecosystem
-    sleepy-dwm.url = "github:thelinuxpirate/sleepy-dwm";
-
     # Themes for Alacritty Terminal
     alacritty-themes.url = "github:alexghr/alacritty-theme.nix";
-
-    # Ags Shell
-    ags.url = "github:Aylur/ags";
 
     # Wayland Wallpaper Tool
     swww.url = "github:LGFae/swww";
 
-    spicetify-nix = { # Spicetify
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Ags Shell
+    ags.url = "github:Aylur/ags";
+
+    # Spicetify
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+
+    # Nix-Minecraft (Server)
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+
+    # Nix-Minecraft (Launcher)
+    nix-minecraft-launcher.url = "github:12Boti/nix-minecraft";
 
     nix-gaming = { # NixOS Gaming Options
       url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-minecraft = { # Nix-Minecraft (Server)
-      url = "github:Infinidoge/nix-minecraft";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-minecraft-launcher = { # Nix-Minecraft (Launcher)
-      url = "github:12Boti/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -106,8 +115,10 @@
 
       systems.modules.nixos = with inputs; [
         home-manager.nixosModules.home-manager
-        sleepy-dwm.nixosModules.sleepy
+        nixos-generators.nixosModules.all-formats
         stylix.nixosModules.stylix
+        sleepy-dwm.nixosModules.sleepy
+        nixos-cosmic.nixosModules.default
         nix-gaming.nixosModules.pipewireLowLatency
         nix-gaming.nixosModules.platformOptimizations
       ];
