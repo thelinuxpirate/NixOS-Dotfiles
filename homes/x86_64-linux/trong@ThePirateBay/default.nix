@@ -19,13 +19,14 @@ with lib.${namespace}; {
   shells = {
     zsh.enable = true;
     starship.enable = true;
-    sleepy-xinit.enable = true;
+    sleepy-xinit.enable = false;
   };
 
   # Applications
   apps = {
     misc = {
       enable = true;
+      zen-browser.enable = true;
       spicetify.enable = true;
 
       terms = {
@@ -44,6 +45,7 @@ with lib.${namespace}; {
     # Programming Tools
     programming = {
       enable = false; # Use Nix flake templates instead
+      emacs.enable = true;
       nixvim.enable = true;
       gamedev.enable = true;
     };

@@ -4,10 +4,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   inherit (inputs) spicetify-nix;
   cfg = config.apps.misc.spicetify;
 in {

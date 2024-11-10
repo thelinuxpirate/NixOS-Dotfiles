@@ -5,10 +5,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   inherit (inputs) ags;
   cfg = config.apps.misc.ags;
 in {
@@ -21,8 +22,8 @@ in {
       enable = true;
       extraPackages = with pkgs; [
         pkgs.gtksourceview
-	      pkgs.webkitgtk
-	      pkgs.accountsservice
+        pkgs.webkitgtk
+        pkgs.accountsservice
 
         pkgs.esbuild
         pkgs.libnotify

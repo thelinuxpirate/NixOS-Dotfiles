@@ -1,13 +1,14 @@
-# TRONG owner of TheTreeHouse
+# TRONG maintainer of ThePirateBay & owner of TheTreeHouse
 {
   options,
   config,
   lib,
   pkgs,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   cfg = config.users.trong;
 in {
   options.users.trong = with types; {

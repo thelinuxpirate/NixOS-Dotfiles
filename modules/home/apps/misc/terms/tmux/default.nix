@@ -4,10 +4,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   cfg = config.apps.misc.terms.tmux;
 in {
   options.apps.misc.terms.tmux = with types; {

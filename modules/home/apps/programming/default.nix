@@ -4,10 +4,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   cfg = config.apps.programming;
 in {
   options.apps.programming = with types; {
@@ -16,7 +17,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      # TODO replace all of these with development shells or templates?
+      # TODO work in 'templates' dir & place each devshell
       pkgs.ghc # Haskell
       pkgs.cabal-install
       pkgs.stack

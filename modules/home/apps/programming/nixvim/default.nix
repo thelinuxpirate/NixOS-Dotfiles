@@ -10,6 +10,7 @@
 }:
 with lib;
 with lib.${namespace}; let
+  inherit (inputs) hielo;
   cfg = config.apps.programming.nixvim;
 in {
   options.apps.programming.nixvim = with types; {
@@ -18,7 +19,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      inputs.hielo.packages.${pkgs.system}.default
+      hielo.packages.${pkgs.system}.default
       pkgs.neovide
       pkgs.stylua
       pkgs.ripgrep

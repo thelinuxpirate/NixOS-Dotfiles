@@ -4,10 +4,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   cfg = config.apps.misc;
 in {
   options.apps.misc = with types; {
@@ -15,12 +16,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs = {
-      firefox = {
-        enable = true;
-        enableGnomeExtensions = false;
-      };
+    nixpkgs.overlays = [
+      (final: prev: {
+        _7zz = prev._7zz.override { useUasm = true; };
+      })
+    ];
 
+    programs = {
       tmux = {
         enable = true;
         tmuxinator.enable = true;
@@ -53,9 +55,13 @@ in {
 
       btop = {
         enable = true;
-        #settings = {
-          #color_theme = "tokyo-night";
-        #};
+      };
+
+      direnv = {
+        enable = true;
+        enableBashIntegration = true;
+        enableZshIntegration = true;
+        nix-direnv.enable = true;
       };
 
       fzf = {
@@ -74,7 +80,7 @@ in {
 
     home.packages = [
       # Web & media
-      pkgs.vesktop # TODO look into discord flakes
+      pkgs.vesktop
       pkgs.discord
       pkgs.thunderbird
       pkgs.tor-browser-bundle-bin
@@ -86,18 +92,11 @@ in {
       pkgs.vlc
       pkgs.gimp
 
-      # gamedev
-      pkgs.blender #gd
-      pkgs.krita # gd
-      pkgs.pixelorama # gd
-
       # Misc & util
       pkgs.krabby
-      pkgs.betterdiscordctl
       pkgs.onefetch
       pkgs.ffmpeg
       pkgs.xdelta
-      pkgs.hyprpicker
     ];
   };
 }

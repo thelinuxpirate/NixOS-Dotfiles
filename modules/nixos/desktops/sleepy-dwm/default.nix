@@ -5,10 +5,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   inherit (inputs) sleepy-dwm;
   cfg = config.desktops.sleepy-dwm;
 in {
@@ -34,7 +35,7 @@ in {
     };
 
     sleepy = {
-      enableSlstatus = true;
+      enableSlstatus = false;
       enableDmenu = true;
     };
 
@@ -42,18 +43,17 @@ in {
       # Desktop dependencies
       pkgs.alacritty
       pkgs.feh
+      pkgs.pamixer
+      pkgs.playerctl
+      pkgs.brightnessctl
       pkgs.picom
       pkgs.dunst
       pkgs.flameshot
 
       # Applications used with Sleepy-DWM
-      pkgs.xfce.thunar
-      pkgs.xfce.thunar-volman
-      pkgs.xfce.thunar-dropbox-plugin
-      pkgs.xfce.thunar-archive-plugin
-      pkgs.xfce.thunar-media-tags-plugin
-      pkgs.xfce.tumbler
+      pkgs.nemo-with-extensions
       pkgs.file-roller
+      pkgs.peazip
       pkgs.pavucontrol
     ];
   };

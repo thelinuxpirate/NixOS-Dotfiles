@@ -4,10 +4,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   cfg = config.apps.misc.terms.wezterm;
 in {
   options.apps.misc.terms.wezterm = with types; {
@@ -18,8 +19,8 @@ in {
     programs = {
       wezterm = {
         enable = true;
-	enableZshIntegration = true;
-	extraConfig = builtins.readFile ./wezterm.lua;
+        enableZshIntegration = true;
+        extraConfig = builtins.readFile ./wezterm.lua;
       }; 
     };
   };

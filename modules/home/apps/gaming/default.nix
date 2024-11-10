@@ -1,14 +1,13 @@
 {
-  inputs,
   options,
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
-  inherit (inputs) nix-gaming;
+with lib.${namespace}; let
   cfg = config.apps.gaming;
 in {
   options.apps.gaming = with types; {
@@ -19,7 +18,9 @@ in {
     home.packages = [
       pkgs.lutris
       pkgs.heroic
-      pkgs.bottles 
-    ]; 
+      pkgs.bottles
+      pkgs.wineWowPackages.waylandFull
+      pkgs.winetricks
+    ];
   };
 }

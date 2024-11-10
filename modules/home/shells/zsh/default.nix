@@ -5,10 +5,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   cfg = config.shells.zsh;
 in {
   options.shells.zsh = with types; {
@@ -50,16 +51,10 @@ in {
           # Nix Maintenance
           rebuild-nixos = "doas nixos-rebuild switch";
           clean-nix = "nix-collect-garbage --delete-old";
+          deepclean-nix = "doas nix-collect-garbage -d && doas nix-store --optimise";
 
           # Nix Deployments
           launch-slippi-cmd = "nix run github:lytedev/ssbm-nix#slippi-netplay";
-          rs-nix = "nix run github:cargo2nix/cargo2nix";
-          
-          # DWM Maintenance
-          rebuildthesucc = "cd $HOME/.config/sleepy-dwm/ && doas make clean install && cd slstatus/ && doas make clean install && cd .. && cd dmenu/ && doas make clean install && cd";
-          rebuildthewm = "cd $HOME/.config/sleepy-dwm/ && doas make clean install && cd";
-          rebuildthebar = "cd $HOME/.config/sleepy-dwm/slstatus/ && doas make clean install && cd";
-          rebuildthemenu = "cd $HOME/.config/sleepy-dwm/dmenu/ && doas make clean install && cd";
         };
       };
     };

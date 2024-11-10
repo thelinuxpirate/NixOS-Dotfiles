@@ -4,10 +4,11 @@
   config,
   lib,
   pkgs,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   cfg = config.suites.common;
 in {
   options.suites.common = with types; {
@@ -42,7 +43,6 @@ in {
     environment.systemPackages = with pkgs; [
       pkgs.git
       pkgs.curl
-      pkgs.nano
       pkgs.pciutils
       pkgs.usbutils
       pkgs.tree

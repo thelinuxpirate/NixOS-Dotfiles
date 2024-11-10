@@ -4,10 +4,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   cfg = config.apps.misc.ags.hyprpanel;
 in {
   options.apps.misc.ags.hyprpanel = with types; {
@@ -20,9 +21,11 @@ in {
       pkgs.hyprpanel
 
       # AGs Dependencies
+      pkgs.sass
+      pkgs.sassc
       pkgs.gtksourceview
-	    pkgs.webkitgtk
-	    pkgs.accountsservice
+      pkgs.webkitgtk
+      pkgs.accountsservice
     ];
   };
 }

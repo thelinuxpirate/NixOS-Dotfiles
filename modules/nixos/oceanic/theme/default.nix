@@ -3,10 +3,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   cfg = config.oceanic.theme;
 in {
   options.oceanic.theme = with types; {

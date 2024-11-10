@@ -4,10 +4,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   inherit (inputs) nix-gaming;
   cfg = config.oceanic.audio;
 in {
@@ -16,6 +17,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    security.rtkit.enable = true;
+
     hardware = {
       pulseaudio.enable = false;
 
@@ -44,9 +47,6 @@ in {
         };
       };
     };
-    
-    # Enables pipewire realtime-capable
-    security.rtkit.enable = true;
 
     environment.systemPackages = with pkgs; [
       pkgs.bluetuith

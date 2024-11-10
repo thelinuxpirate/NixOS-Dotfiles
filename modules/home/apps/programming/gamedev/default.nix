@@ -4,10 +4,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   cfg = config.apps.programming.gamedev;
 in {
   options.apps.programming.gamedev = with types; {
@@ -15,7 +16,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # TODO port 'DevKitPro' packages to nix & look into Godot4 flake
+    # 'DevKitPro' has nix flakes
     home.packages = [
       pkgs.godot_4 # Game engine
       pkgs.gdtoolkit_4 # Tools for GDScript

@@ -1,15 +1,14 @@
 # ThePirateBay XMonad setup
 {
-  inputs,
   options,
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
-  inherit (inputs) sleepy-dwm;
+with lib.${namespace}; let
   cfg = config.desktops.xmonad;
 in {
   options.desktops.xmonad = with types; {
@@ -18,13 +17,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.xserver.windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-      config = builtins.readFile ./config/xmonad.hs;
-    };
+    services = {
+      xserver.windowManager.xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+        config = builtins.readFile ./../../../../dotfiles/xmonad/xmonad.hs;
+      };
 
-    sleepy.enableDmenu = true;
+      greenclip.enable = true;
+    };
 
     environment.systemPackages = with pkgs; [
       # Desktop dependencies
@@ -36,14 +37,11 @@ in {
       pkgs.playerctl
       pkgs.brightnessctl
       pkgs.pamixer
+      pkgs.rofi
 
       # Applications used with ThePirateBay rice
-      pkgs.xfce.thunar
-      pkgs.xfce.thunar-volman
-      pkgs.xfce.thunar-dropbox-plugin
-      pkgs.xfce.thunar-archive-plugin
-      pkgs.xfce.thunar-media-tags-plugin
-      pkgs.xfce.tumbler
+      pkgs.nemo-with-extensions
+      pkgs.peazip
       pkgs.file-roller
       pkgs.pavucontrol
     ];

@@ -5,10 +5,11 @@
   config,
   pkgs,
   lib,
+  namespace,
   ...
 }:
 with lib;
-with lib.thepiratebay; let
+with lib.${namespace}; let
   inherit (inputs) nix-minecraft;
   inherit (inputs) nix-minecraft-launcher;
   cfg = config.apps.gaming.extras.minecraft;

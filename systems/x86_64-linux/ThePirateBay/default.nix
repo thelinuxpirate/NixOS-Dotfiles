@@ -84,8 +84,9 @@
 
   desktops = {
     hyprland.enable = true;
-    sleepy-dwm.enable = true;
-    xmonad.enable = false;
+    cosmic.enable = false;
+    sleepy-dwm.enable = false;
+    xmonad.enable = true;
     awesome.enable = false;
   };
 

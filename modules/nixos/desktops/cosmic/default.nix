@@ -1,6 +1,5 @@
-# ThePirateBay Hyprland setup
+# ThePirateBay Cosmic setup
 {
-  inputs,
   options,
   config,
   pkgs,
@@ -10,53 +9,42 @@
 }:
 with lib;
 with lib.${namespace}; let
-  inherit (inputs) swww;
-  cfg = config.desktops.hyprland;
+  cfg = config.desktops.cosmic;
 in {
-  options.desktops.hyprland = with types; {
-    enable = mkBoolOpt false "Whether or not to enable Hyprland";
+  options.desktops.cosmic = with types; {
+    enable = mkBoolOpt false "Whether or not to enable Cosmic DE";
     # NOTE DISPLAY MANAGERS WILL ALWAYS BE MANAGED BY THE HOST NOT A MODULE
   };
 
   config = mkIf cfg.enable {
-    programs = {
-      hyprland = {
-        enable = true;
-        xwayland.enable = true;
-        portalPackage = pkgs.xdg-desktop-portal-hyprland;
-      };
-
-      hyprlock.enable = false;
+    services = {
+      desktopManager.cosmic.enable = true;
+      displayManager.cosmic-greeter.enable = false; # Use SDDM
     };
-
-    services.hypridle.enable = false;
 
     xdg.portal = {
       enable = true;
       extraPortals = [
+        pkgs.xdg-desktop-portal-cosmic
         pkgs.xdg-desktop-portal-gtk
       ];
     };
 
     environment = {
-      sessionVariables.NIXOS_OZONE_WL = "1";
-
+      sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
       systemPackages = with pkgs; [
         # Desktop dependencies
-        swww.packages.${pkgs.system}.swww
-        pkgs.mpvpaper
-        pkgs.grimblast
+        pkgs.flameshot
         pkgs.playerctl
         pkgs.brightnessctl
         pkgs.pamixer
+        pkgs.gnome.gvfs
 
         # Applications used with ThePirateBay rice
         pkgs.nemo-with-extensions
-        pkgs.wofi
         pkgs.peazip
         pkgs.file-roller
         pkgs.pavucontrol
-        pkgs.hyprpicker
       ];
     };
   };
