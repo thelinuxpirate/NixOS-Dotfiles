@@ -27,15 +27,16 @@ in {
         src = pkgs.fetchFromGitHub {
           owner = "thelinuxpirate";
           repo = "sleepy-dwm";
-          rev = "master"; # 38a7b5b
-          sha256 = "1p1z6xfkiilvkm32zf24qddnvxmay57hxrrm6az0xw285j17w50g";
+          rev = "master";
+          sha256 = "07vivrlgca0dybdfyb043q19drv7w4x1043qm0f1yfn14k4xm865";
         };
         nativeBuildInputs = oldAttrs.nativeBuildInputs or [] ++ [ pkgs.imlib2 ];
       });
     };
 
     sleepy = {
-      enableSlstatus = false;
+      enableSlstatus = true;
+      enableST = false;
       enableDmenu = true;
     };
 

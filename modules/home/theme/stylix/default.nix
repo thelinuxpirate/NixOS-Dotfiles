@@ -19,7 +19,7 @@ in {
       alacritty.enable = false;
       neovim.enable = false;
       nixvim.enable = false;
-      spicetify.enable = false;
+      spicetify.enable = true;
       waybar.enable = false;
       wezterm.enable = false;
     };

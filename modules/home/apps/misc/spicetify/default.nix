@@ -20,8 +20,9 @@ in {
     programs.spicetify = {
       enable = true;
 
-      theme = spicetify-nix.legacyPackages.${pkgs.system}.themes.comfy;
-      colorScheme = "catppuccin-macchiato";
+      # Currently managed by Stylix
+      #theme = spicetify-nix.legacyPackages.${pkgs.system}.themes.comfy;
+      #colorScheme = "catppuccin-macchiato";
 
       enabledCustomApps = with spicetify-nix.legacyPackages.${pkgs.system}.apps; [
         localFiles

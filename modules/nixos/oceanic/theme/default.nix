@@ -22,7 +22,7 @@ in {
       targets.grub.enable = false;
 
       image = ./default.jpg;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
 
       cursor = {
         package = pkgs.numix-cursor-theme;

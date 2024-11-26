@@ -16,11 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Stylix System Colors
-    stylix.url = "github:danth/stylix";
-
     # GRUB Bootloader Themes
     grub-themes.url = "github:jeslie0/nixos-grub-themes";
+
+    # Stylix System Colors
+    stylix.url = "github:danth/stylix";
 
     nixos-generators = { # ISO Generator
       url = "github:nix-community/nixos-generators";
@@ -40,11 +40,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Darkwraith Emacs
-    #darkwraith-emacs.url = "github:thelinuxpirate/Darkwraith-Emacs";
-
     # NixVim Configuration
     hielo.url = "github:thelinuxpirate/HIELO";
+
+    # NvChad Nix
+    nvchad = {
+      url = "github:nix-community/nix4nvchad";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Web Browser
     zen-browser.url = "github:/MarceColl/zen-browser-flake";
@@ -104,6 +107,7 @@
       };
 
       homes.modules = with inputs; [
+        nvchad.homeManagerModule
         ags.homeManagerModules.default
         spicetify-nix.homeManagerModules.default
       ];

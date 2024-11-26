@@ -18,7 +18,10 @@ in {
   config = mkIf cfg.enable {
     networking.networkmanager = {
       enable = true;
-      wifi.powersave = false;
+      wifi = {
+        powersave = false;
+        scanRandMacAddress = false;
+      };
     };
 
     i18n = {
@@ -45,9 +48,9 @@ in {
       pkgs.curl
       pkgs.pciutils
       pkgs.usbutils
+      pkgs.wirelesstools
       pkgs.tree
       pkgs.ncdu
-      pkgs.pfetch
     ];
   };
 }

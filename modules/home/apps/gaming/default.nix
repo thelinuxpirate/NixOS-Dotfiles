@@ -1,4 +1,5 @@
 {
+  inputs,
   options,
   config,
   pkgs,
@@ -8,6 +9,8 @@
 }:
 with lib;
 with lib.${namespace}; let
+  inherit (inputs) nixpkgs-stable;
+  stablePkgs = import nixpkgs-stable { system = pkgs.stdenv.hostPlatform.system; };
   cfg = config.apps.gaming;
 in {
   options.apps.gaming = with types; {
@@ -21,6 +24,8 @@ in {
       pkgs.bottles
       pkgs.wineWowPackages.waylandFull
       pkgs.winetricks
+
+      stablePkgs.grapejuice
     ];
   };
 }

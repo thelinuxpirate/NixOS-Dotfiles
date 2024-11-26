@@ -46,7 +46,8 @@ with lib.${namespace}; {
     programming = {
       enable = false; # Use Nix flake templates instead
       emacs.enable = true;
-      nixvim.enable = true;
+      nvchad.enable = true;
+      hielo.enable = false;
       gamedev.enable = true;
     };
 
@@ -66,7 +67,7 @@ with lib.${namespace}; {
   # Theming
   theme = {
     stylix.enable = true;
-    icons.papirus.enable = true;
+    icons.papirus.nord.enable = true;
   };
 
   home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "24.05");
