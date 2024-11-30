@@ -5,7 +5,7 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
 - GPU: N/A
 - Samsung SSD 850 EVO 250GB (Two seperate drives)
 
-Hardware.nix
+=Hardware.nix=
 #+begin_src nix
 { config, lib, pkgs, modulesPath, ... }:
 
@@ -43,7 +43,7 @@ Hardware.nix
 }
 #+end_src
 
-ThePirateBay: default.nix
+=ThePirateBay: default.nix=
 #+begin_src nix
 # ThePirateBay - The Oceanic Desktop
 {
