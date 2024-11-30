@@ -5,7 +5,7 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
 - GPU: N/A
 - Samsung SSD 850 EVO 250GB (Two seperate drives)
 
-* File Tree
+* File-Tree
 #+begin_src
 ├── homes
 │   └── x86_64-linux
@@ -201,7 +201,7 @@ have a user declared with their host.
 This file contains the configuration tailored for ~trong~.
 
 
-The ~shells, apps, programming, gaming, theme~ directories are all modules that any user
+The ~shells/ apps/ programming/ gaming/ theme/~ directories are all modules that any user
 can use thanks to ~snowfallorg~ & ~home-manager~ options (referenced in ~flake.nix~).
 #+begin_src nix :tangle homes/x86_64-linux/trong@ThePirateBay
 {
@@ -276,5 +276,149 @@ with lib.${namespace}; {
   };
 
   home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "24.05");
+}
+#+end_src
+** modules/nixos
+*** desktops
+The ~desktops~ modules contain multiple desktops that can be enabled in ~systems/x84_64-linux/ThePirateBay/default.nix~.
+For reference purposes I only have the code of the modules I currently use on this machine,
+if you are interested in the other desktops I'd recommend checking it out yourself.
+
+
+=hyprland/default.nix=
+
+Hyprland is my main compositor, in-case I encounter issues with Wayland
+I have my DWM configuration enabled too.
+#+begin_src nix :tangle modules/nixos/desktops/hyprland/default.nix
+{
+  inputs,
+  options,
+  config,
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
+with lib;
+with lib.${namespace}; let
+  inherit (inputs) swww;
+  cfg = config.desktops.hyprland;
+in {
+  options.desktops.hyprland = with types; {
+    enable = mkBoolOpt false "Whether or not to enable Hyprland";
+    # NOTE DISPLAY MANAGERS WILL ALWAYS BE MANAGED BY THE HOST NOT A MODULE
+  };
+
+  config = mkIf cfg.enable {
+    programs = {
+      hyprland = {
+        enable = true;
+        xwayland.enable = true;
+        portalPackage = pkgs.xdg-desktop-portal-hyprland;
+      };
+
+      hyprlock.enable = false;
+    };
+
+    services.hypridle.enable = false;
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
+    };
+
+    environment = {
+      sessionVariables.NIXOS_OZONE_WL = "1";
+
+      systemPackages = with pkgs; [
+        # Desktop dependencies
+        swww.packages.${pkgs.system}.swww
+        pkgs.mpvpaper
+        pkgs.grimblast
+        pkgs.playerctl
+        pkgs.brightnessctl
+        pkgs.pamixer
+
+        # Applications to be used with my Hyprland configuration
+        pkgs.nemo-with-extensions
+        pkgs.wofi
+        pkgs.peazip
+        pkgs.file-roller
+        pkgs.pavucontrol
+        pkgs.hyprpicker
+      ];
+    };
+  };
+}
+#+end_src
+=sleepy-dwm/default.nix=
+
+
+Sleepy-DWM is my personal configuration of Suckless' Xorg Window-Manager DWM.
+sleepy-dwm contains its own ~flake.nix~ where its modules are declared
+[[https://github.com/thelinuxpirate/sleepy-dwm][(here)]].
+#+begin_src nix :tangle modules/nixos/desktops/sleepy-dwm/default.nix
+# Sleepy-DWM Nix port
+{
+  inputs,
+  options,
+  config,
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
+with lib;
+with lib.${namespace}; let
+  inherit (inputs) sleepy-dwm;
+  cfg = config.desktops.sleepy-dwm;
+in {
+  options.desktops.sleepy-dwm = with types; {
+    enable = mkBoolOpt false "Whether or not to enable Sleepy-DWM";
+    # NOTE DISPLAY MANAGERS WILL ALWAYS BE MANAGED BY THE HOST NOT A MODULE
+  };
+
+  config = mkIf cfg.enable {
+    services.xserver.windowManager.dwm = {
+      enable = true;
+      package = pkgs.dwm.overrideAttrs (oldAttrs: rec {
+        pname = "sleepy-dwm";
+        version = "6.5";
+        src = pkgs.fetchFromGitHub {
+          owner = "thelinuxpirate";
+          repo = "sleepy-dwm";
+          rev = "master";
+          sha256 = "07vivrlgca0dybdfyb043q19drv7w4x1043qm0f1yfn14k4xm865";
+        };
+        nativeBuildInputs = oldAttrs.nativeBuildInputs or [] ++ [ pkgs.imlib2 ];
+      });
+    };
+
+    sleepy = {
+      enableSlstatus = true;
+      enableST = false;
+      enableDmenu = true;
+    };
+
+    environment.systemPackages = with pkgs; [
+      # Desktop dependencies
+      pkgs.alacritty
+      pkgs.feh
+      pkgs.pamixer
+      pkgs.playerctl
+      pkgs.brightnessctl
+      pkgs.picom
+      pkgs.dunst
+      pkgs.flameshot
+
+      # Applications used with Sleepy-DWM
+      pkgs.nemo-with-extensions
+      pkgs.file-roller
+      pkgs.peazip
+      pkgs.pavucontrol
+    ];
+  };
 }
 #+end_src
