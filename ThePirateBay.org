@@ -5,20 +5,61 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
 - GPU: N/A
 - Samsung SSD 850 EVO 250GB (Two seperate drives)
 
+* File Tree
+├── homes
+│   └── x86_64-linux
+│       ├── trong@ThePirateBay
+├── modules
+│   └── nixos
+│       ├── desktops
+│       │   ├── hyprland
+│       │   └── sleepy-dwm
+│       ├── oceanic
+│       │   ├── audio
+│       │   ├── theme
+│       │   └── utils
+│       ├── suites
+│       │   ├── common
+│       │   └── gaming
+│       └── users
+│           └── trong
+└── systems
+    ├── x86_64-install-iso
+    │   └── minimal
+    └── x86_64-linux
+        └── ThePirateBay
+            └── backgrounds
+* Source
 =Hardware.nix=
+Declares hardware-specific options & handels kernel management.
 #+begin_src nix
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    kernelPackages = pkgs.linuxPackages_zen;
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+
+    initrd = {
+      availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "usb_storage"
+        "usbhid"
+        "sd_mod"
+      ];
+      kernelModules = [ ];
+    };
+  };
 
   # NixOS Root SSD
   fileSystems."/" =
@@ -27,7 +68,7 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
     };
 
   # SSDTwo
-  fileSystems."/drive/ssdtwo" = # change to /mnt/ssdtwo?
+  fileSystems."/drive/ssdtwo" =
     { device = "/dev/disk/by-uuid/0bc7cf14-fefa-4506-9661-929cc16cd3e0";
       fsType = "ext4";
     };
@@ -44,8 +85,9 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
 #+end_src
 
 =ThePirateBay: default.nix=
+Configuration of the Oceanic desktop.
+ThePirateBay is the host system that inherits all of the 'Oceanic' modules.
 #+begin_src nix
-# ThePirateBay - The Oceanic Desktop
 {
   inputs,
   config,
