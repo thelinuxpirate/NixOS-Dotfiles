@@ -34,8 +34,10 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
 * Source
 ** systems/x84_64-linux/ThePirateBay
 =Hardware.nix=
+
+
 Declares hardware-specific options & handels kernel management.
-#+begin_src nix
+#+begin_src nix :tangle systems/x84_64-linux/ThePirateBay/hardware.nix
 {
   config,
   lib,
@@ -88,10 +90,12 @@ Declares hardware-specific options & handels kernel management.
 #+end_src
 
 =default.nix=
+
+
 The main declaration of the Oceanic desktop.
 Here we enable all of the modules we want to inherit that's referenced down below.
 ThePirateBay is my main host machine, it inherits all of the ~Oceanic~ modules.
-#+begin_src nix
+#+begin_src nix :tangle systems/x84_64-linux/ThePirateBay/default.nix
 {
   inputs,
   config,
@@ -186,5 +190,91 @@ ThePirateBay is my main host machine, it inherits all of the ~Oceanic~ modules.
   };
 
   system.stateVersion = "24.05";
+}
+#+end_src
+** homes/x86_64-linux/trong@ThePirateBay
+=default.nix=
+
+
+When using the ~snowfallorg/lib~ system, the ~homes~ directory is meant to
+have a user declared with their host.
+This file contains the configuration tailored for ~trong~.
+
+
+The ~shells, apps, programming, gaming, theme~ directories are all modules that any user
+can use thanks to ~snowfallorg~ & ~home-manager~ options (referenced in ~flake.nix~).
+#+begin_src nix :tangle homes/x86_64-linux/trong@ThePirateBay
+{
+  config,
+  lib,
+  pkgs,
+  osConfig,
+  namespace,
+  ...
+}:
+with lib;
+with lib.${namespace}; {
+  # Enable User
+  snowfallorg.user = {
+    enable = true;
+    name = "trong";
+  };
+
+  # Shell Management
+  shells = {
+    zsh.enable = true;
+    starship.enable = true;
+    sleepy-xinit.enable = false;
+  };
+
+  # Applications
+  apps = {
+    misc = {
+      enable = true;
+      zen-browser.enable = true;
+      spicetify.enable = true;
+
+      terms = {
+        tmux.enable = true;
+        alacritty.enable = true;
+        foot.enable = false;
+        wezterm.enable = false;
+      };
+
+      ags = {
+        enable = false;
+        hyprpanel.enable = true;
+      };
+    };
+
+    # Programming Tools
+    programming = {
+      enable = false; # Use Nix flake templates instead
+      emacs.enable = true;
+      nvchad.enable = true;
+      hielo.enable = false;
+      gamedev.enable = true;
+    };
+
+    # Gaming Options
+    gaming = {
+      enable = true;
+
+      extras = {
+        enable = true;
+        emulation.enable = true;
+        minecraft.enable = true;
+        proton.enable = false;
+      };
+    };
+  };
+
+  # Theming
+  theme = {
+    stylix.enable = true;
+    icons.papirus.nord.enable = true;
+  };
+
+  home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "24.05");
 }
 #+end_src
