@@ -9,7 +9,7 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
 #+begin_src
 ├── homes
 │   └── x86_64-linux
-│       ├── trong@ThePirateBay
+│       └── trong@ThePirateBay
 ├── modules
 │   └── nixos
 │       ├── desktops
@@ -32,6 +32,7 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
             └── backgrounds
 #+end_src
 * Source
+** systems/x84_64-linux/ThePirateBay
 =Hardware.nix=
 Declares hardware-specific options & handels kernel management.
 #+begin_src nix
@@ -86,9 +87,10 @@ Declares hardware-specific options & handels kernel management.
 }
 #+end_src
 
-=ThePirateBay: default.nix=
-Configuration of the Oceanic desktop.
-ThePirateBay is the host system that inherits all of the 'Oceanic' modules.
+=default.nix=
+The main declaration of the Oceanic desktop.
+Here we enable all of the modules we want to inherit that's referenced down below.
+ThePirateBay is my main host machine, it inherits all of the ~Oceanic~ modules.
 #+begin_src nix
 {
   inputs,
