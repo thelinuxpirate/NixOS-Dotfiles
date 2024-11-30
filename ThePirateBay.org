@@ -19,9 +19,6 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
 │       │   ├── audio
 │       │   ├── theme
 │       │   └── utils
-│       ├── suites
-│       │   ├── common
-│       │   └── gaming
 │       └── users
 │           └── trong
 └── systems
@@ -418,6 +415,227 @@ in {
       pkgs.file-roller
       pkgs.peazip
       pkgs.pavucontrol
+    ];
+  };
+}
+#+end_src
+*** oceanic
+The ~oceanic~ module contains all of the settings for ~ThePirateBay~.
+If any machine wanted to recycle options, then they would be able to enable that option
+from the ~oceanic~ module.
+
+
+=audio/default.nix=
+
+
+Audio options for ~ThePirateBay~ (uses the ~nix-gaming~ module).
+#+begin_src nix :tangle modules/nixos/oceanic/audio/default.nix
+# Oceanic audio preset
+{
+  options,
+  config,
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
+with lib;
+with lib.${namespace}; let
+  inherit (inputs) nix-gaming;
+  cfg = config.oceanic.audio;
+in {
+  options.oceanic.audio = with types; {
+    enable = mkBoolOpt false "Whether or not to enable the Oceanic audio preset";
+  };
+
+  config = mkIf cfg.enable {
+    security.rtkit.enable = true;
+
+    hardware = {
+      pulseaudio.enable = false;
+
+      bluetooth = {
+        enable = true;
+        powerOnBoot = true;
+      };
+    };
+
+    services = {
+      jack.loopback.enable = true;
+
+      pipewire = {
+        enable = true;
+
+        wireplumber.enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
+
+        lowLatency = { # Provided by 'nix-gaming'
+          enable = true;
+          quantum = 64;
+          rate = 48000;
+        };
+      };
+    };
+
+    environment.systemPackages = with pkgs; [
+      pkgs.bluetuith
+      pkgs.blueberry
+    ];
+  };
+}
+#+end_src
+=theme/default.nix=
+
+
+The ~oceanic~ theme uses ~stylix~ to enable the theme globally & its own ~fonts~
+option to enable system fonts.
+#+begin_src nix :tangle modules/nixos/oceanic/theme/default.nix
+{
+  options,
+  config,
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
+with lib;
+with lib.${namespace}; let
+  cfg = config.oceanic.theme;
+in {
+  options.oceanic.theme = with types; {
+    enable = mkBoolOpt false "Enables the Oceanic theme";
+    fonts = mkOpt (listOf package) [] "Custom font packages to install";
+  };
+
+  config = mkIf cfg.enable {
+    stylix = {
+      enable = true;
+      autoEnable = true;
+      targets.grub.enable = false;
+
+      image = ./default.jpg;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+
+      cursor = {
+        package = pkgs.numix-cursor-theme;
+        name = "Numix-Cursor-Light";
+        size = 20;
+      };
+    };
+
+    environment = {
+      systemPackages = with pkgs; [ pkgs.font-manager ];
+      variables = {
+        LOG_ICONS = "true";
+      };
+    };
+
+    fonts = {
+      packages = with pkgs; [
+        pkgs.comic-mono
+        pkgs.font-awesome
+        pkgs.nerdfonts
+        pkgs.minecraftia
+      ];
+
+      fontDir.enable = true;
+      fontconfig = {
+        defaultFonts = {
+          serif = [ "Comic Mono" ];
+          sansSerif = [ "Comic Mono" ];
+          monospace = [ "Comic Mono" ];
+        };
+      };
+    };
+  };
+}
+#+end_src
+=utils/default.nix=
+
+
+Utility packages & some utility programs are enabled here.
+#+begin_src nix :tangle modules/nixos/oceanic/utils/default.nix
+# Utility packages (TODO include sops-nix?)
+{
+  options,
+  config,
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
+with lib;
+with lib.${namespace}; let
+  cfg = config.oceanic.utils;
+in {
+  options.oceanic.utils = with types; {
+    enable = mkBoolOpt false "Whether or not to manage fonts";
+  };
+
+  config = mkIf cfg.enable {
+    security.doas = {
+      enable = true;
+      wheelNeedsPassword = false;
+    };
+
+    programs = {
+      gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
+      };
+    };
+
+    environment.systemPackages = with pkgs; [
+      pkgs.appimage-run
+      pkgs.nix-prefetch-git
+      pkgs.glxinfo
+      pkgs.vulkan-tools
+      pkgs.networkmanagerapplet
+      pkgs.fastfetch
+    ];
+  };
+}
+#+end_src
+
+*** users
+As of now there is only one user that I use between all my machines.
+In the future, that might change.
+
+
+=trong/default.nix=
+
+
+The main user ~trong~ is declared here for usage but
+is mainly configured using the ~home-manager~ option for flexibility.
+#+begin_src nix :tangle modules/nixos/users/trong/default.nix
+# TRONG, maintainer of ThePirateBay & owner of TheTreeHouse
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
+with lib;
+with lib.${namespace}; let
+  cfg = config.users.trong;
+in {
+  options.users.trong = with types; {
+    create = mkBoolOpt false "Creates the TRONG user";
+  };
+
+  config = mkIf cfg.create {
+    snowfallorg.users.trong = {
+      create = true;
+      admin = true;
+    };
+
+    services.udev.packages = with pkgs; [
+      platformio-core.udev
     ];
   };
 }
