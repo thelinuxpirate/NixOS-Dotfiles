@@ -6,6 +6,7 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
 - Samsung SSD 850 EVO 250GB (Two seperate drives)
 
 * File Tree
+#+begin_src
 ├── homes
 │   └── x86_64-linux
 │       ├── trong@ThePirateBay
@@ -29,6 +30,7 @@ ThePirateBay is a NixOS configuration tailored for this specific hardware:
     └── x86_64-linux
         └── ThePirateBay
             └── backgrounds
+#+end_src
 * Source
 =Hardware.nix=
 Declares hardware-specific options & handels kernel management.
