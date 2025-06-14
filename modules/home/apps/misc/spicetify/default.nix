@@ -30,9 +30,6 @@ in {
       ];
 
       enabledExtensions = with spicetify-nix.legacyPackages.${pkgs.system}.extensions; [
-        autoSkipVideo
-        bookmark
-        keyboardShortcut
         shuffle
         webnowplaying
         groupSession
@@ -40,13 +37,11 @@ in {
         fullAlbumDate
         fullAppDisplayMod
         goToSong
-        listPlaylistsWithSong
-        wikify
         songStats
         showQueueDuration
         copyToClipboard
         lastfm
-        adblock
+        #adblock
       ];
     };
   };

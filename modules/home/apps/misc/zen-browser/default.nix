@@ -17,8 +17,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      inputs.zen-browser.packages.${pkgs.system}.default
-    ];
+    programs.zen-browser = {
+      enable = true;
+      nativeMessagingHosts = [ pkgs.firefoxpwa ];
+      policies = { 
+
+      };
+    };
   };
 }

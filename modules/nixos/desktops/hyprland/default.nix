@@ -26,6 +26,7 @@ in {
         portalPackage = pkgs.xdg-desktop-portal-hyprland;
       };
 
+      waybar.enable = true;
       hyprlock.enable = false;
     };
 
@@ -33,27 +34,26 @@ in {
 
     xdg.portal = {
       enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
 
     environment = {
       sessionVariables.NIXOS_OZONE_WL = "1";
 
-      systemPackages = with pkgs; [
+      systemPackages = [
         # Desktop dependencies
         swww.packages.${pkgs.system}.swww
+        pkgs.kdePackages.xwaylandvideobridge
+        pkgs.nerd-fonts.jetbrains-mono
         pkgs.mpvpaper
-        pkgs.grimblast
+        pkgs.grimblast # TODO: find replacement
         pkgs.playerctl
         pkgs.brightnessctl
         pkgs.pamixer
 
-        # Applications used with ThePirateBay rice
+        # Applications used with TheTreeHouse rice
         pkgs.nemo-with-extensions
-        pkgs.wofi
-        pkgs.peazip
+        pkgs.wofi # TODO: replace with an AGs implementation
         pkgs.file-roller
         pkgs.pavucontrol
         pkgs.hyprpicker

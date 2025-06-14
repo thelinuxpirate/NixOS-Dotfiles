@@ -25,12 +25,12 @@ in {
       extraPackages = epkgs: [
         epkgs.vterm
         epkgs.mu4e
-        epkgs.emacsql-sqlite
+        epkgs.emacsql
       ];
     };
 
-    services.emacs = { # acting buggy on 29.4v
-      enable = false;
+    services.emacs = { # WAS acting buggy on 29.4v
+      enable = true;
       defaultEditor = true;
       package = stablePkgs.emacs-gtk;
     };

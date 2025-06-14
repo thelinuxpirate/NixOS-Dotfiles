@@ -1,10 +1,13 @@
 {
-  description = "TRONG's NixOS builds: ThePirateBay, TheTreeHouse, & ThePirateShip";
+
+  # Get rid of ThePirateBay & Rebrand to TheTreeHouse
+  description = "TRONG's NixOS builds: TheTreeHouse & ThePirateShip";
 
   inputs = {
     # Base Inputs
+    nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     home-manager = { # Home-Manager
       url = "github:nix-community/home-manager/master";
@@ -28,11 +31,11 @@
     };
 
     # Extra Inputs
-    # Sleepy Suckless Ecosystem
-    sleepy-dwm.url = "github:thelinuxpirate/sleepy-dwm";
+    # ChadWM (Xorg DWM)
+    chadwm.url = "github:thelinuxpirate/ChadWM";
 
-    # Cosmic Desktop
-    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+    # Sleepy Suckless Ecosystem (TODO: Change to my ChadWM config)
+    sleepy-dwm.url = "github:thelinuxpirate/sleepy-dwm";
 
     # Emacs Overlay
     emacs-overlay = {
@@ -50,10 +53,10 @@
     };
 
     # Web Browser
-    zen-browser.url = "github:/MarceColl/zen-browser-flake";
-
-    # HyprPanel Bar
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    zen-browser = {
+      url = "github:/0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Themes for Alacritty Terminal
     alacritty-themes.url = "github:alexghr/alacritty-theme.nix";
@@ -72,6 +75,9 @@
 
     # Nix-Minecraft (Launcher)
     nix-minecraft-launcher.url = "github:12Boti/nix-minecraft";
+
+    # SSBM
+    ssbm.url = "github:djanatyn/ssbm-nix/update/nixpkgs-git";
 
     nix-gaming = { # NixOS Gaming Options
       url = "github:fufexan/nix-gaming";
@@ -109,20 +115,18 @@
       homes.modules = with inputs; [
         nvchad.homeManagerModule
         ags.homeManagerModules.default
+        zen-browser.homeModules.beta
         spicetify-nix.homeManagerModules.default
       ];
 
-      overlays = with inputs; [
-        alacritty-themes.overlays.default
-        hyprpanel.overlay
-      ];
+      overlays = with inputs; [ alacritty-themes.overlays.default ];
 
       systems.modules.nixos = with inputs; [
         home-manager.nixosModules.home-manager
         nixos-generators.nixosModules.all-formats
         stylix.nixosModules.stylix
+        chadwm.nixosModules.chadwm
         sleepy-dwm.nixosModules.sleepy
-        nixos-cosmic.nixosModules.default
         nix-gaming.nixosModules.pipewireLowLatency
         nix-gaming.nixosModules.platformOptimizations
       ];

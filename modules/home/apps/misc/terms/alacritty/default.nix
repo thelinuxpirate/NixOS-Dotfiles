@@ -20,8 +20,8 @@ in {
     programs = {
       alacritty = {
         enable = true;
-        settings.import = [ pkgs.alacritty-theme.tomorrow_night ];
         settings = {
+          general.import = [ pkgs.alacritty-theme.tokyo_night ];
           font = {
             normal.family = "Comic Mono";
             bold.family = "Comic Mono";

@@ -22,7 +22,7 @@ in {
       targets.grub.enable = false;
 
       image = ./default.jpg;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
 
       cursor = {
         package = pkgs.numix-cursor-theme;
@@ -32,17 +32,17 @@ in {
     };
 
     environment = {
-      systemPackages = with pkgs; [ pkgs.font-manager ];
+      systemPackages = [ pkgs.font-manager ];
       variables = {
         LOG_ICONS = "true";
       };
     };
 
     fonts = {
-      packages = with pkgs; [
+      packages = [
         pkgs.comic-mono
         pkgs.font-awesome
-        pkgs.nerdfonts
+        pkgs.nerd-fonts.noto
         pkgs.minecraftia
       ];
 

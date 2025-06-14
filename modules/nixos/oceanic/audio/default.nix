@@ -20,8 +20,6 @@ in {
     security.rtkit.enable = true;
 
     hardware = {
-      pulseaudio.enable = false;
-
       bluetooth = { 
         enable = true;
         powerOnBoot = true;
@@ -29,6 +27,7 @@ in {
     };
 
     services = {
+      pulseaudio.enable = false;
       jack.loopback.enable = true;
 
       pipewire = {

@@ -20,7 +20,6 @@ in {
   config = mkIf cfg.enable {
     home.packages = [
       hielo.packages.${pkgs.system}.default
-      pkgs.neovide
       pkgs.stylua
       pkgs.ripgrep
     ];

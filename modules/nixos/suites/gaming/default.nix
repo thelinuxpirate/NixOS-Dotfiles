@@ -1,5 +1,6 @@
 # TRONGs version of Steam settings (useable between ALL hosts)
 {
+  inputs,
   options,
   config,
   pkgs,
@@ -20,17 +21,19 @@ in {
     programs = {
       steam = {
         enable = true;
-
+        
         extest.enable = true;
         gamescopeSession.enable = true;
         protontricks.enable = true;
+        platformOptimizations.enable = true;
 
         extraPackages = [
           pkgs.mangohud
           pkgs.protonup-ng
-          pkgs.protonup-qt
         ];
-        extraCompatPackages = [ pkgs.proton-ge-bin ];
+        extraCompatPackages = [ 
+          pkgs.proton-ge-bin 
+        ];
       };
 
       gamemode = {

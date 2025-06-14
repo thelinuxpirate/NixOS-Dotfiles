@@ -1,4 +1,3 @@
-# Emulators
 {
   options,
   config,
@@ -16,16 +15,16 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
+      # NOTE: Use Citra via AppImage
+      # pkgs.ryujinx
+      # pkgs.cemu
+      # pkgs.vbam
+      # pkgs.pcsx2
       pkgs.dolphin-emu
-      pkgs.cemu
-      pkgs.ryujinx # TODO replace with Suyu when supported
       pkgs.rmg-wayland
-      pkgs.lime3ds
-      pkgs.vbam
       pkgs.desmume
       pkgs.snes9x-gtk
       pkgs.rpcs3
-      pkgs.pcsx2
-    ]; 
+    ];
   };
 }

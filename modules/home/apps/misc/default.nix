@@ -81,8 +81,6 @@ in {
     home.packages = [
       # Web & media
       pkgs.vesktop
-      pkgs.discord
-      pkgs.thunderbird
       pkgs.tor-browser-bundle-bin
       pkgs.transmission_4-gtk
 

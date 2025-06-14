@@ -1,4 +1,3 @@
-# Minecraft options
 {
   inputs,
   options,

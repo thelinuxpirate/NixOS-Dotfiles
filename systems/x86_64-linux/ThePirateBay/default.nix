@@ -1,4 +1,4 @@
-# ThePirateBay - The Oceanic Desktop
+# TODO: (Change Title & Hostname) ThePirateBay - The Oceanic Desktop
 {
   inputs,
   config,
@@ -13,9 +13,11 @@
   # NixOS boot options
   boot.loader.grub = {
     enable = true;
-    device = "/dev/sda";
+    efiSupport = true;
     useOSProber = true;
-    theme = inputs.grub-themes.packages.${pkgs.system}.hyperfluent;
+    efiInstallAsRemovable = true;
+    devices = [ "nodev" ];
+    theme = inputs.grub-themes.packages.${pkgs.system}.nixos;
   };
 
   # Desktop hostname
@@ -32,6 +34,10 @@
 
   # Nix options
   nix = {
+    settings = { # Storage Managment
+      auto-optimise-store = true;
+      download-buffer-size = 33554432;
+    };
     gc = { # Automatic garbage collection
       automatic = true;
       dates = "weekly";
@@ -58,7 +64,7 @@
       flavor = "mocha";
       font  = "Comic Mono";
       fontSize = "12";
-      background = "${./backgrounds/jpn-house.jpg}";
+      background = "${./backgrounds/outset-island.png}";
       loginBackground = true;
     }
   )];
@@ -68,7 +74,7 @@
     xserver = {
       enable = true;
       updateDbusEnvironment = true;
-      videoDrivers = [ "intel-media-driver" ];
+      videoDrivers = [ "intel-media-driver" "amdgpu" ];
       xkb = {
         layout = "us";
         variant = "";
@@ -86,10 +92,9 @@
 
   desktops = {
     hyprland.enable = true;
-    sleepy-dwm.enable = true;
+    chadwm.enable = true; # too many fucking errors
+    sleepy-dwm.enable = false;
     xmonad.enable = false;
-    cosmic.enable = false;
-    awesome.enable = false;
   };
 
   system.stateVersion = "24.05";

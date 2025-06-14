@@ -20,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     programs.ags = {
       enable = true;
-      extraPackages = with pkgs; [
+      extraPackages = [
         pkgs.gtksourceview
         pkgs.webkitgtk
         pkgs.accountsservice

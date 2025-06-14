@@ -21,7 +21,7 @@ in {
       zsh = {
         enable = true;
         syntaxHighlighting.enable = true;
-        initExtra = "krabby random -i\n";
+        initContent = "krabby random -i\n";
 
         plugins = [
           {

@@ -19,7 +19,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      nix-gaming.packages.${pkgs.system}.osu-stable
+      #nix-gaming.packages.${pkgs.system}.osu-stable # BROKEN? Nix Flake Update?
       #nix-gaming.packages.${pkgs.system}.rocket-league
       #nix-gaming.packages.${pkgs.system}.technic-launcher 
     ]; 

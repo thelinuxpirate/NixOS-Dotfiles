@@ -17,6 +17,7 @@ with lib.${namespace}; {
 
   # Shell Management
   shells = {
+    # TODO: reconfigure shell
     zsh.enable = true;
     starship.enable = true;
     sleepy-xinit.enable = false;
@@ -28,6 +29,7 @@ with lib.${namespace}; {
       enable = true;
       zen-browser.enable = true;
       spicetify.enable = true;
+      ags.enable = true;
 
       terms = {
         tmux.enable = true;
@@ -35,20 +37,14 @@ with lib.${namespace}; {
         foot.enable = false;
         wezterm.enable = false;
       };
-
-      ags = {
-        enable = false;
-        hyprpanel.enable = true;
-      };
     };
 
     # Programming Tools
     programming = {
-      enable = false; # Use Nix flake templates instead
-      emacs.enable = true;
-      nvchad.enable = true;
-      hielo.enable = false;
-      gamedev.enable = true;
+      emacs.enable = true; # back to neovim?
+      nvchad.enable = false; # TODO: remove
+      hielo.enable = true;
+      gamedev.enable = false;
     };
 
     # Gaming Options
@@ -58,8 +54,7 @@ with lib.${namespace}; {
       extras = {
         enable = true;
         emulation.enable = true;
-        minecraft.enable = true;
-        proton.enable = false;
+        minecraft.enable = true; # TODO: Configure
       };
     };
   };
